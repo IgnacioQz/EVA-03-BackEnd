@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Reservar Sala{% endblock %}
+
+{% block content %}
+<main>
+    <div class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Nueva Reserva </h2>
+            </div>
+            <div class="modal-body">
+                {% if errores %}
+                    <div class="error-list">
+                        <h3>Errores en el formulario:</h3>
+                        <ul>
+                            {% for error in errores %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+                <form action="{% url 'formulario' %}" method="POST" class="anime-form">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        {% for campo in form %}
+                            <div class="form-group {% if campo.errors %}has-error{% endif %}">
+                                <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                                {{ campo }}
+                                {% if campo.errors %}
+                                    <div class="error">{{ campo.errors }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

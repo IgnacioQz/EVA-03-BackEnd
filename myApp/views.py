@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from .forms import ReservaForm
+from .models import Reserva
 
 def welcome(request):
     return render(request, 'welcome.html')
@@ -38,3 +40,20 @@ def admin_view(request):
         messages.error(request, "No tienes permisos para acceder a esta página.")
         return redirect("welcome")
     return render(request,'admin_dashboard.html') 
+
+@login_required
+def formulario(request):
+    context = {}
+    
+    if request.method == "POST":
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('formulario')
+        else:
+            context['errores'] = form.errors
+            context['form'] = form  # Mantenemos el formulario con los datos ingresados
+    else:
+        context['form'] = ReservaForm()  #
+    
+    return render(request, "formulario.html", context)

@@ -39,21 +39,24 @@ class Reserva(models.Model):
         return f"Reserva de {self.rut_persona} en {self.sala.nombre} el {self.fecha_reserva}"
     
     def clean(self):
-        # Validacion: la hora de inicio debe ser anterior a la hora de fin
-        if self.hora_inicio >= self.hora_fin:
-            raise ValidationError("La hora de inicio debe ser anterior a la hora de fin.")
+    # Validacion: la hora de inicio debe ser anterior a la hora de fin
+        if self.hora_inicio and self.hora_fin:  # Solo validar si ambos existen
+            if self.hora_inicio >= self.hora_fin:
+                raise ValidationError("La hora de inicio debe ser anterior a la hora de fin.")
         
-        # Validacion: la  fecha de reserva no debe ser en el pasado
-        if self.fecha_reserva < timezone.now().date():
-            raise ValidationError("La fecha de reserva no puede ser en el pasado.")
+        # Validacion: la fecha de reserva no debe ser en el pasado
+        if self.fecha_reserva:  
+            if self.fecha_reserva < timezone.now().date():
+                raise ValidationError("La fecha de reserva no puede ser en el pasado.")
         
-        # Validacion: la cantidad de personas no debe exceder la capacidad de la sala
-        if self.sala and self.personas > self.sala.capacidad:
-            raise ValidationError("La cantidad de personas excede la capacidad de la sala.")
+        # Validacion: el número de personas no puede exceder la capacidad de la sala
+        if self.sala and self.personas:
+            if self.personas > self.sala.capacidad:
+                raise ValidationError(f"El número de personas ({self.personas}) excede la capacidad de la sala ({self.sala.capacidad}).")
         
-        #validacion: la cantidad de personas debe ser al menos 1
-        if self.personas < 1:
-            raise ValidationError("La cantidad de personas debe ser al menos 1.")
+        # Validacion: el número de personas debe ser al menos 1
+        if self.personas and self.personas < 1:
+            raise ValidationError("Debe haber al menos 1 persona en la reserva.")
         
         # Validacion: la sala debe estar disponible en el horario seleccionado
         if self.sala and self.fecha_reserva and self.hora_inicio and self.hora_fin: 
@@ -64,15 +67,8 @@ class Reserva(models.Model):
                 reserva_actual=self
                 ):
                 raise ValidationError("La sala no está disponible en el horario seleccionado.")
-        
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super().save(*args, **kwargs)
-
+            
     class Meta:
         verbose_name = "Reserva"
         verbose_name_plural = "Reservas"
         ordering = ['-fecha_reserva', 'hora_inicio']
-        
-
-
