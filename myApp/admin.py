@@ -8,10 +8,14 @@ class SalaAdmin(admin.ModelAdmin):
 
 @admin.register(Reserva)
 class ReservaAdmin(admin.ModelAdmin):
-    list_display = ('rut_persona', 'sala', 'fecha_reserva', 'hora_inicio', 'hora_fin', 'personas')
-    list_filter = ('sala', 'fecha_reserva')
+    list_display = ['rut_persona', 'sala', 'fecha_hora_inicio', 'fecha_hora_fin', 'personas']
+    list_filter = ('sala', 'fecha_hora_inicio')
     search_fields = ('rut_persona',)
-    ordering = ('-fecha_reserva', 'hora_inicio')
+    ordering = ['fecha_hora_inicio']
+    date_hierarchy = 'fecha_hora_inicio'
+
+from django.contrib import admin
+from .models import Sala, Reserva
 
 admin.site.site_header = "Administración de Reservas de Salas"
 admin.site.site_title = "Admin Reservas Salas"

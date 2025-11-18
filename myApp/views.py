@@ -49,9 +49,9 @@ def formulario(request):
         form = ReservaForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('formulario')
+            messages.success(request, "¡Reserva creada exitosamente!")
+            return redirect('main')
         else:
-            context['errores'] = form.errors
             context['form'] = form  # Mantenemos el formulario con los datos ingresados
     else:
         context['form'] = ReservaForm()  #

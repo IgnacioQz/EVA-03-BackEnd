@@ -8,9 +8,22 @@
     <div class="modal-overlay">
         <div class="modal-container">
             <div class="modal-header">
-                <h2>Nueva Reserva </h2>
+                <h2>Nueva Reserva</h2>
             </div>
             <div class="modal-body">
+                <!-- Mostrar errores no asociados a campos específicos -->
+                {% if form.non_field_errors %}
+                    <div class="error-list">
+                        <h3>Errores:</h3>
+                        <ul>
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+                <!-- Mostrar errores antiguos (si aún los usas en la vista) -->
                 {% if errores %}
                     <div class="error-list">
                         <h3>Errores en el formulario:</h3>
@@ -30,7 +43,11 @@
                                 <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
                                 {{ campo }}
                                 {% if campo.errors %}
-                                    <div class="error">{{ campo.errors }}</div>
+                                    <div class="error">
+                                        {% for error in campo.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
                                 {% endif %}
                             </div>
                         {% endfor %}
