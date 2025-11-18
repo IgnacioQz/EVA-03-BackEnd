@@ -1,40 +1,40 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Reserva de Salas{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{% static 'css/main.css' %}">{% endblock %}
 
 {% block content %}
-<main>
-    <div class="album py-5 bg-body-tertiary">
-      <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          {% for sala in salas %}
-          <div class="col">
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">{{sala.nombre}}</h5>
-                <p class="card-text">Capacida: {{sala.capacidad}} Personas</p>
-                {% if sala.sala_disponible is False %}
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Reservada</h6>
-                    {% for reserva in sala.reserva_set.all %}
-                        <p class="card-text">Inicio Reserva: {{ reserva.fecha_hora_inicio }}</p>
-                        <p class="card-text">Fin Reserva: {{ reserva.fecha_hora_fin }}</p>
-                    {% endfor %}
-                {% else %}
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Disponible</h6>
-                    <a href="{% url 'formulario' %}" class="btn btn-primary ms-2">Reservar</a>
-                {% endif %}
-                    <a href="{% url 'sala_detalle' sala.id  %}" class="btn btn-primary ms-2">Detalle</a>
+<main class="main-content">
 
-              </div>
+    <section class="salas-container py-4">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+
+                {% for sala in salas %}
+                <div class="col">
+                    <div class="card-sala">
+
+                        <h3 class="sala-nombre">{{ sala.nombre }}</h3>
+
+                        {% if sala.sala_disponible %}
+                            <p class="text-disponible">Disponible</p>
+                            <a href="{% url 'formulario' %}" class="btn-chainsaw mb-2">Reservar</a>
+                        {% else %}
+                            <p class="text-ocupada">Reservada</p>
+                        {% endif %}
+
+                        <a href="{% url 'sala_detalle' sala.id %}" class="btn-outline-chainsaw mt-1">
+                            Detalle
+                        </a>
+
+                    </div>
+                </div>
+                {% endfor %}
+
             </div>
-          </div>
-          {% endfor %}
         </div>
-      </div>
-    </div>
-
-
+    </section>
 
 </main>
-
 {% endblock %}

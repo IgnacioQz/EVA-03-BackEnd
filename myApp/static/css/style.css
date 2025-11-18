@@ -1,142 +1,125 @@
-/* ----------- PALETA ------------- 
-   Rojo sangre: #d62828
-   Naranja motosierra: #f77f00
-   Negro profundo: #0b0b0b
-   Gris oscuro: #1f1f1f
-   Gris medio: #3a3a3a
-   Blanco: #ffffff
----------------------------------- */
+/* ============================
+   GLOBAL
+   ============================ */
 
-/* Fondo general */
 body {
-    background-color: #0b0b0b;
-    color: #ffffff;
-    font-family: "Montserrat", sans-serif;
+    background: #0c0c0c; /* Fondo negro */
+    color: #f8f1e4; /* Texto claro */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* NAVBAR */
-.navbar {
-    background-color: #1f1f1f !important;
-    border-bottom: 2px solid #d62828;
-}
-
-.navbar-brand span {
-    font-weight: bold;
-    color: #d62828;
-    font-size: 1.3rem;
-}
-
-.navbar-brand img {
-    filter: grayscale(100%) contrast(150%); /* combina con tu logo blanco/negro */
-}
-
-/* Barra de búsqueda */
-.navbar input[type="search"] {
-    background-color: #3a3a3a;
-    border: 1px solid #d62828;
-    color: #fff;
-}
-
-.navbar input[type="search"]::placeholder {
-    color: #bbbbbb;
-}
-
-.btn-outline-success {
-    border-color: #f77f00;
-    color: #f77f00;
-}
-
-.btn-outline-success:hover {
-    background-color: #f77f00;
-    color: #0b0b0b;
-    border-color: #f77f00;
-}
-
-/* LINKS */
 a {
-    color: #f77f00;
+    color: #ff7b00;
     text-decoration: none;
 }
 
 a:hover {
-    color: #ffffff;
+    color: #d62828;
 }
 
-/* TARJETAS DE SALAS */
-.card {
-    background-color: #1f1f1f;
-    border: 2px solid #3a3a3a;
-    border-radius: 10px;
-    transition: 0.3s;
+/* ============================
+   NAVBAR
+   ============================ */
+
+.main-navbar {
+    background: #1a1a1a;
+    border-bottom: 3px solid #d62828; /* línea roja */
+    padding: 0.6rem 1rem;
+    box-shadow: 0 2px 8px rgba(214, 40, 40, 0.5);
 }
 
-.card:hover {
-    border-color: #d62828;
-    transform: translateY(-4px);
+.navbar-logo {
+    width: 75px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 4px rgba(255, 123, 0, 0.4)); /* glow naranja */
 }
 
-/* Títulos */
-.card-title, h1, h2, h3 {
-    color: #f77f00;
+.navbar-title {
+    font-size: 1.4rem;
     font-weight: bold;
+    margin-left: 0.4rem;
+    color: #ff7b00;
+    text-shadow: 2px 2px 0 #a61010;
 }
 
-/* Botones generales */
-.btn-primary {
-    background-color: #d62828;
+/* ============================
+   CONTENIDO
+   ============================ */
+
+.main-content {
+    padding: 2rem;
+}
+
+/* ============================
+   TARJETAS DE SALAS
+   ============================ */
+
+.card-sala {
+    background: #1a1a1a;
+    color: #f8f1e4;
+    border: 2px solid #d62828;
+    border-radius: 12px;
+    padding: 1.3rem;
+    transition: transform 0.1s ease-in, box-shadow 0.15s ease-in;
+}
+
+/* vibración motosierra on hover */
+.card-sala:hover {
+    transform: translateY(-4px) rotate(-0.4deg);
+    box-shadow: 0 0 15px rgba(255, 123, 0, 0.5), 0 0 5px rgba(214, 40, 40, 0.6);
+}
+
+
+/* ============================
+   BOTONES 
+   ============================ */
+
+.btn-chainsaw {
+    background: #d62828;
+    color: #fff;
     border: none;
+    padding: 0.55rem 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: transform 0.1s ease-in, background 0.15s ease-in;
 }
 
-.btn-primary:hover {
-    background-color: #f77f00;
+.btn-chainsaw:hover {
+    background: #ff7b00;
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(255, 123, 0, 0.7);
 }
 
-.btn-secondary {
-    background-color: #3a3a3a;
-    border: 1px solid #d62828;
+.btn-outline-chainsaw {
+    border: 2px solid #ff7b00;
+    background: transparent;
+    color: #ff7b00;
+    font-weight: bold;
+    padding: 0.55rem 1.2rem;
+    border-radius: 8px;
+    transition: 0.15s;
 }
 
-.btn-secondary:hover {
-    background-color: #d62828;
-    color: #ffffff;
+.btn-outline-chainsaw:hover {
+    background: #ff7b00;
+    color: #1a1a1a;
+    transform: scale(1.05);
 }
 
-/* Detalle Sala */
-.detail-box {
-    background-color: #1f1f1f;
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 5px solid #d62828;
-}
 
-/* Formularios */
-form input, form select, form textarea {
-    background-color: #3a3a3a !important;
-    border: 1px solid #d62828 !important;
-    color: #ffffff !important;
-}
+/* ============================
+   ESTADOS Y TEXTOS
+   ============================ */
 
-form label {
-    color: #f77f00;
+.text-disponible {
+    color: #ff7b00;
     font-weight: bold;
 }
 
-.btn-submit {
-    background-color: #d62828;
-    color: #ffffff;
-}
-
-.btn-submit:hover {
-    background-color: #f77f00;
-    color: #0b0b0b;
-}
-
-/* Footer opcional */
-footer {
-    background-color: #1f1f1f;
-    color: #f77f00;
-    text-align: center;
-    padding: 10px;
-    margin-top: 30px;
-    border-top: 2px solid #d62828;
+.text-ocupada {
+    color: #d62828;
+    font-weight: bold;
 }

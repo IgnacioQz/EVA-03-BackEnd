@@ -1,0 +1,32 @@
+/* ============================
+   MAIN PAGE (GRID DE SALAS)
+   ============================ */
+
+.salas-container {
+    margin-top: 1rem;
+}
+
+/* Títulos dentro de la tarjeta */
+.sala-nombre {
+    font-size: 1.5rem;
+    color: #ff7b00;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #a61010;
+    margin-bottom: 0.8rem;
+}
+
+/* Ajuste para el texto de disponibilidad */
+.text-disponible,
+.text-ocupada {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+/* Ajustes especiales de tarjeta */
+.card-sala {
+    min-height: 200px;
+    padding-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
