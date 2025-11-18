@@ -39,38 +39,12 @@ class Reserva(models.Model):
     personas = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"Reserva de {self.rut_persona} en {self.sala.nombre} el {self.fecha_hora_inicio.strftime('%d/%m/%Y %H:%M')}"
-    
-    def clean(self):
-        # Validación: la fecha/hora de inicio debe ser anterior a la de fin
-        if self.fecha_hora_inicio and self.fecha_hora_fin:
-            if self.fecha_hora_inicio >= self.fecha_hora_fin:
-                raise ValidationError("La fecha/hora de inicio debe ser anterior a la de fin.")
-        
-        # Validación: la fecha de reserva no debe ser en el pasado
-        if self.fecha_hora_inicio:
-            if self.fecha_hora_inicio < timezone.now():
-                raise ValidationError("La fecha/hora de reserva no puede ser en el pasado.")
-        
-        # Validación: el número de personas no puede exceder la capacidad de la sala
-        if self.sala and self.personas:
-            if self.personas > self.sala.capacidad:
-                raise ValidationError(
-                    f"El número de personas ({self.personas}) excede la capacidad de la sala ({self.sala.capacidad})."
-                )
-        
-        # Validación: el número de personas debe ser al menos 1
-        if self.personas and self.personas < 1:
-            raise ValidationError("Debe haber al menos 1 persona en la reserva.")
-        
-        # Validación: la sala debe estar disponible en el horario seleccionado
-        if self.sala and self.fecha_hora_inicio and self.fecha_hora_fin:
-            if not self.sala.disponibilidad(
-                self.fecha_hora_inicio, 
-                self.fecha_hora_fin, 
-                reserva_actual=self
-            ):
-                raise ValidationError("La sala no está disponible en el horario seleccionado.")
+        try:
+            sala_nombre = self.sala.nombre if self.sala else "Sin sala"
+            fecha_str = self.fecha_hora_inicio.strftime('%d/%m/%Y %H:%M') if self.fecha_hora_inicio else "Sin fecha"
+            return f"Reserva de {self.rut_persona} en {sala_nombre} el {fecha_str}"
+        except Exception:
+            return f"Reserva #{self.id if self.id else 'nueva'}"
     
     class Meta:
         verbose_name = "Reserva"
