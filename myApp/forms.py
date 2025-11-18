@@ -49,7 +49,7 @@ class ReservaForm(forms.ModelForm):
         fecha_hora_fin = ahora + timedelta(hours=2)
         
         # Validar disponibilidad
-        if not sala.disponibilidad(fecha_hora_inicio, fecha_hora_fin):
+        if not sala.verificar_disponibilidad(fecha_hora_inicio, fecha_hora_fin):
             raise ValidationError({
                 'sala': "La sala no está disponible en este momento. Ya existe una reserva activa."
             })

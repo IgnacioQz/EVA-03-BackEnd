@@ -3,7 +3,7 @@ from .models import Sala, Reserva
 
 @admin.register(Sala)
 class SalaAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'capacidad')
+    list_display = ('nombre', 'capacidad', 'sala_disponible')
     search_fields = ('nombre',)
 
 @admin.register(Reserva)
