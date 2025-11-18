@@ -3,8 +3,38 @@
 {% block title %}Reserva de Salas{% endblock %}
 
 {% block content %}
-<h1>Bienvenido a la aplicación de Reserva de Salas</h1>
-<p>Utilice el menú para navegar por la aplicación.</p>
+<main>
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for sala in salas %}
+          <div class="col">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">{{sala.nombre}}</h5>
+                <p class="card-text">Capacida: {{sala.capacidad}} Personas</p>
+                {% if sala.sala_disponible is False %}
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Reservada</h6>
+                    {% for reserva in sala.reserva_set.all %}
+                        <p class="card-text">Inicio Reserva: {{ reserva.fecha_hora_inicio }}</p>
+                        <p class="card-text">Fin Reserva: {{ reserva.fecha_hora_fin }}</p>
+                    {% endfor %}
+                {% else %}
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Disponible</h6>
+                    <a href="{% url 'formulario' %}" class="btn btn-primary ms-2">Reservar</a>
+                {% endif %}
+                    <a href="{% url 'sala_detalle' sala.id  %}" class="btn btn-primary ms-2">Detalle</a>
 
-<a href="{% url 'formulario' %}" class="btn btn-primary ms-2">Reservar Sala</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+
+
+</main>
+
 {% endblock %}

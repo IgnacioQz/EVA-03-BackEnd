@@ -1,0 +1,142 @@
+/* ----------- PALETA ------------- 
+   Rojo sangre: #d62828
+   Naranja motosierra: #f77f00
+   Negro profundo: #0b0b0b
+   Gris oscuro: #1f1f1f
+   Gris medio: #3a3a3a
+   Blanco: #ffffff
+---------------------------------- */
+
+/* Fondo general */
+body {
+    background-color: #0b0b0b;
+    color: #ffffff;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: #1f1f1f !important;
+    border-bottom: 2px solid #d62828;
+}
+
+.navbar-brand span {
+    font-weight: bold;
+    color: #d62828;
+    font-size: 1.3rem;
+}
+
+.navbar-brand img {
+    filter: grayscale(100%) contrast(150%); /* combina con tu logo blanco/negro */
+}
+
+/* Barra de búsqueda */
+.navbar input[type="search"] {
+    background-color: #3a3a3a;
+    border: 1px solid #d62828;
+    color: #fff;
+}
+
+.navbar input[type="search"]::placeholder {
+    color: #bbbbbb;
+}
+
+.btn-outline-success {
+    border-color: #f77f00;
+    color: #f77f00;
+}
+
+.btn-outline-success:hover {
+    background-color: #f77f00;
+    color: #0b0b0b;
+    border-color: #f77f00;
+}
+
+/* LINKS */
+a {
+    color: #f77f00;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+/* TARJETAS DE SALAS */
+.card {
+    background-color: #1f1f1f;
+    border: 2px solid #3a3a3a;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    border-color: #d62828;
+    transform: translateY(-4px);
+}
+
+/* Títulos */
+.card-title, h1, h2, h3 {
+    color: #f77f00;
+    font-weight: bold;
+}
+
+/* Botones generales */
+.btn-primary {
+    background-color: #d62828;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #f77f00;
+}
+
+.btn-secondary {
+    background-color: #3a3a3a;
+    border: 1px solid #d62828;
+}
+
+.btn-secondary:hover {
+    background-color: #d62828;
+    color: #ffffff;
+}
+
+/* Detalle Sala */
+.detail-box {
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid #d62828;
+}
+
+/* Formularios */
+form input, form select, form textarea {
+    background-color: #3a3a3a !important;
+    border: 1px solid #d62828 !important;
+    color: #ffffff !important;
+}
+
+form label {
+    color: #f77f00;
+    font-weight: bold;
+}
+
+.btn-submit {
+    background-color: #d62828;
+    color: #ffffff;
+}
+
+.btn-submit:hover {
+    background-color: #f77f00;
+    color: #0b0b0b;
+}
+
+/* Footer opcional */
+footer {
+    background-color: #1f1f1f;
+    color: #f77f00;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+    border-top: 2px solid #d62828;
+}
