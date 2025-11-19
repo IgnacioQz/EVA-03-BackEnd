@@ -14,17 +14,6 @@
 
             <h2 class="form-title">Nueva Reserva</h2>
 
-            <!-- Errores generales -->
-            {% if form.non_field_errors %}
-                <div class="form-errors">
-                    <ul>
-                        {% for error in form.non_field_errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-
             <!-- En caso de estar usando una lista de errores adicional -->
             {% if errores %}
                 <div class="form-errors">
@@ -45,7 +34,19 @@
                         {{ campo.label }}
                     </label>
                     
-                    {{ campo }}
+                    {% if campo.name == 'rut_persona' %}
+                        <input 
+                            type="text" 
+                            name="{{ campo.name }}" 
+                            id="{{ campo.id_for_label }}"
+                            class="form-control rut-input" 
+                            placeholder="12.345.678-9"
+                            maxlength="12"
+                            value="{{ campo.value|default:'' }}"
+                        >
+                    {% else %}
+                     {{campo}}
+                    {% endif %}
 
                     {% if campo.errors %}
                     <div class="field-error">
@@ -65,6 +66,30 @@
             </a>
         </div>
     </div>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const rutInput = document.querySelector('.rut-input');
+        
+        if (rutInput) {
+            rutInput.addEventListener('input', function(e) {
+                let rut = e.target.value.replace(/[^0-9kK-]/g, '').toUpperCase();
+                
+                if (rut.length > 0) {
+                    // Separar número y dígito verificador
+                    let numero = rut.replace('-', '').slice(0, -1);
+                    let digito = rut.replace('-', '').slice(-1);
+                    
+                    if (numero.length > 0 && digito.length > 0) {
+                        // Agregar puntos cada 3 dígitos
+                        numero = numero.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                        
+                        // Actualizar valor
+                        e.target.value = numero + '-' + digito;
+                    }
+                }
+            });
+        }
+    });
+</script>
 </main>
 {% endblock %}

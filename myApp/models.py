@@ -87,7 +87,6 @@ class Reserva(models.Model):
             return f"Reserva #{self.id if self.id else 'nueva'}"
         
     def save(self, *args, **kwargs):
-        es_nueva = self.pk is None
         super().save(*args,**kwargs)
 
         # Actualizar disponibilidad de la sala después de guardar
