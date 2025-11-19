@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-# Modelo para sala 
 class Sala(models.Model):
     nombre = models.CharField(max_length=100)
     capacidad = models.IntegerField()
@@ -33,7 +32,6 @@ class Sala(models.Model):
         return count
     
     def actualizar_disponibilidad(self):
-        #Actualizar el estado de disponibilidad
         ahora = timezone.now()
 
         #Verificar reservas activas
