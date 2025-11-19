@@ -17,16 +17,12 @@ def main(request):
 
 def formulario(request):
     context = {}
-    eliminadas = Sala.limpiar_reservas_vencidas()
-
-    if eliminadas > 0:
-        messages.success(request, f"Se limpiaron {eliminadas} reserva(s) vencida(s)")
+    Sala.limpiar_reservas_vencidas()
     
     if request.method == "POST":
         form = ReservaForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "¡Reserva creada exitosamente!")
             return redirect('main')
         else:
             context['form'] = form  # Mantenemos el formulario con los datos ingresados

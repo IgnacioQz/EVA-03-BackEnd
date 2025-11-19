@@ -3,7 +3,7 @@
    ============================ */
 
 body {
-    background: #0c0c0c; /* Fondo negro */
+    background: #0c0c0c ; /* Fondo negro */
     color: #f8f1e4; /* Texto claro */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -123,3 +123,21 @@ a:hover {
     color: #d62828;
     font-weight: bold;
 }
+
+body {
+    background-color: #111 !important;
+}
+.bg-body-tertiary {
+    background-color: #111 !important;
+}
+
+.fondo-dark {
+    background-color: #111 !important;
+}
+
+body {
+    background-color: #000 !important;
+}
+
+
+

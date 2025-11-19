@@ -3,40 +3,46 @@
 
 {% block title %}{{ sala.nombre }} - Detalle{% endblock title %}
 
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/detalle.css' %}">
+{% endblock %}
+
 {% block content %}
 
-  <main>
-    <section class="py-5 text-center container">
-      <div class="row py-lg-5">
-          <p>
-            <a href="{% url 'main' %}" class="btn btn-secondary my-2">Página Principal</a>
-          </p>
-        <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light">{{sala.nombre}}</h1>
-        </div>
-      </div>
-    </section>
-    <div class="album py-5 bg-body-tertiary">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <h3>Descripción</h3>
-            <p>Capacidad Maxima: {{ sala.capacidad }}</p>
-            
-            {% if sala.sala_disponible is False %}
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Reservada</h6>
-                    {% for reserva in sala.reserva_set.all %}
-                        <p class="card-text">Inicio: {{ reserva.fecha_hora_inicio }}</p>
-                        <p class="card-text">Fin: {{ reserva.fecha_hora_fin }}</p>
-                    {% endfor %}
-                {% else %}
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Disponible</h6>
-                    <a href="{% url 'formulario' %}" class="btn btn-primary ms-2">Reservar</a>
-                {% endif %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+<main class="detalle-wrapper">
+    
+    <div class="detalle-card">
 
-{% endblock content %}
+        <h1 class="detalle-title">{{ sala.nombre }}</h1>
+
+        <p class="detalle-capacidad">
+            Capacidad Máxima: 
+            <span>{{ sala.capacidad }}</span>
+        </p>
+
+        {% if sala.sala_disponible is False %}
+            <h2 class="estado estado-ocupada">RESERVADA</h2>
+
+            <div class="detalle-reservas">
+                {% for reserva in sala.reserva_set.all %}
+                    <p><strong>Inicio:</strong> {{ reserva.fecha_hora_inicio }}</p>
+                    <p><strong>Fin:</strong> {{ reserva.fecha_hora_fin }}</p>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            <h2 class="estado estado-disponible">DISPONIBLE</h2>
+
+            <a href="{% url 'formulario' %}" class="btn-reservar">
+                Reservar Sala
+            </a>
+        {% endif %}
+        <a href="{% url 'main' %}" class="btn-volver">
+            Volver al Inicio
+        </a>
+
+    </div>
+
+</main>
+
+{% endblock %}
