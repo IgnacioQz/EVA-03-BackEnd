@@ -21,19 +21,19 @@ class ReservaForm(forms.ModelForm):
         }
     
     def clean_personas(self):
-        """Validación del campo personas"""
+        #Validación del campo personas
         personas = self.cleaned_data.get('personas')
         if personas and personas < 1:
             raise ValidationError("Debe haber al menos 1 persona en la reserva.")
         return personas
     
     def clean(self):
-        """Validación global del formulario"""
+        #Validación global del formulario
         cleaned_data = super().clean()
         sala = cleaned_data.get('sala')
         personas = cleaned_data.get('personas')
         
-        # Solo validar si tenemos sala y personas sin errores previos
+        # validar si tenemos sala y personas sin errores previos
         if not sala or not personas:
             return cleaned_data
         
@@ -57,7 +57,7 @@ class ReservaForm(forms.ModelForm):
         return cleaned_data
     
     def save(self, commit=True):
-        """Guardar la reserva con fechas automáticas"""
+        #Guardar la reserva con fechas automáticas
         reserva = super().save(commit=False)
         
         # Asignar fechas

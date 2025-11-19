@@ -12,6 +12,7 @@ class Sala(models.Model):
     @staticmethod
     def limpiar_reservas_vencidas():
         ahora = timezone.now()
+        # Busca reservas que ya terminaron
         reservas_vencidas = Reserva.objects.filter(fecha_hora_fin__lt=ahora)
 
         #Salas a eliminar
@@ -41,6 +42,7 @@ class Sala(models.Model):
             fecha_hora_fin__gt = ahora
         ).exists()
 
+        # Si hay reserva activa, la sala está ocupada
         self.sala_disponible = not reserva_activa
         self.save(update_fields=['sala_disponible'])
     
@@ -48,7 +50,7 @@ class Sala(models.Model):
         #Limpiar reservas vencidas antes de consultar disponibilidad
         Sala.limpiar_reservas_vencidas()
         
-        # Buscar reservas que se solapen con el rango solicitado
+        # Obtiene reservas de esta sala
         reservas = Reserva.objects.filter(sala=self)
         
         if reserva_actual and reserva_actual.id:
